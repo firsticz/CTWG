@@ -60,35 +60,35 @@ async function insert(query) {
 }
 
 
-// cron.schedule('5,10,15,20,25,30,35,40,45,50,55,59 * * * * *', async() => {
-//   //console.log('running every 5 sec');
-//   const notification = await run()
-//   if(notification){
-//     notification.forEach((ele) => {
-//       //const wordCount = messageContent.length
-//       fetch('https://api.bitkub.com/api/market/ticker').then(res => res.json())
-//       .then(json => {
-//         const strCoin = ele.coin.toUpperCase()
-//         const strSearch  = 'THB_'.concat(strCoin)
-//         //console.log(strSearch);
-//         let findFlag = false
-//         for (const [key, value] of Object.entries(json)) {
-//           if(strSearch === key ) {
-//             findFlag = true
-//               // msg.reply(strSearch+ ': '+ numberWithCommas( value.last ) + ' THB');
-//               if(value.last >= parseFloat(ele.price) ){
-//                 const channel = bot.channels.get(ele.channelId)
-//                 channel.send(`Hi, <@${ele.user}>` + strSearch+ ': '+ numberWithCommas( value.last ) + ' THB')
-//                 notifications.findOneAndUpdate({_id: ele._id}, {$set: {status: true}})
-//               }
-//           }
-//         }
+cron.schedule('5,10,15,20,25,30,35,40,45,50,55,59 * * * * *', async() => {
+  //console.log('running every 5 sec');
+  const notification = await run()
+  if(notification){
+    notification.forEach((ele) => {
+      //const wordCount = messageContent.length
+      fetch('https://api.bitkub.com/api/market/ticker').then(res => res.json())
+      .then(json => {
+        const strCoin = ele.coin.toUpperCase()
+        const strSearch  = 'THB_'.concat(strCoin)
+        //console.log(strSearch);
+        let findFlag = false
+        for (const [key, value] of Object.entries(json)) {
+          if(strSearch === key ) {
+            findFlag = true
+              // msg.reply(strSearch+ ': '+ numberWithCommas( value.last ) + ' THB');
+              if(value.last >= parseFloat(ele.price) ){
+                const channel = bot.channels.get(ele.channelId)
+                channel.send(`Hi, <@${ele.user}>` + strSearch+ ': '+ numberWithCommas( value.last ) + ' THB')
+                notifications.findOneAndUpdate({_id: ele._id}, {$set: {status: true}})
+              }
+          }
+        }
         
-//       })
-//     })
-//   }
+      })
+    })
+  }
   
-// });
+});
 
 
 bot.on('message', msg => {
@@ -172,26 +172,26 @@ bot.on('message', msg => {
       }
     })
   }
-  // else if(msg.content.startsWith('แจ้งเตือนเมื่อ')) {
-  //   let messageContent = msg.content.split(' ')
-  //   const user = msg.author.id
-  //   const channelId = msg.channel.id
-  //   const coin = messageContent[1]
-  //   const price = messageContent[3]
-  //   const query= {
-  //     'user': user,
-  //     'channelId': channelId,
-  //     'coin': coin,
-  //     'price': price,
-  //     'status': false
-  //   }
-  //   const notification = insert(query)
-  //   if(notification){
-  //     msg.reply('ตั้งเวลาแจ้งเตือนสำเร็จ');
-  //   }else {
-  //     msg.reply('ตั้งเวลาแจ้งเตือนไม่สำเร็จ');
-  //   }
-  // }
+  else if(msg.content.startsWith('แจ้งเตือนเมื่อ')) {
+    let messageContent = msg.content.split(' ')
+    const user = msg.author.id
+    const channelId = msg.channel.id
+    const coin = messageContent[1]
+    const price = messageContent[3]
+    const query= {
+      'user': user,
+      'channelId': channelId,
+      'coin': coin,
+      'price': price,
+      'status': false
+    }
+    const notification = insert(query)
+    if(notification){
+      msg.reply('ตั้งเวลาแจ้งเตือนสำเร็จ');
+    }else {
+      msg.reply('ตั้งเวลาแจ้งเตือนไม่สำเร็จ');
+    }
+  }
   
   // else if(msg.content.startsWith('!create wallet')) {
   //   const  obj = {
