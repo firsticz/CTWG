@@ -1,6 +1,5 @@
 require('dotenv').config();
 const Discord = require('discord.js');
-const { MessageAttachment } = require('discord.js')
 const bot = new Discord.Client();
 const fetch = require('node-fetch')
 const _find = require('lodash/find')
@@ -164,7 +163,7 @@ bot.on('message', msg => {
   }
   else if(msg.content.startsWith('to the moon')) {
     const image = fs.readFileSync(path.join(__dirname, 'tothemoon.jpg'))
-    const attachment = new MessageAttachment(image)
+    const attachment = new Discord.MessageAttachment(image)
     msg.reply(attachment);
   }
   else if(msg.content.startsWith('เสียดาย')) {
