@@ -1,10 +1,12 @@
 require('dotenv').config();
 const Discord = require('discord.js');
+const { MessageAttachment } = require('discord.js')
 const bot = new Discord.Client();
 const fetch = require('node-fetch')
 const _find = require('lodash/find')
 const _sort = require('lodash/sortBy')
 const fs = require('fs')
+const path = require('path')
 const cron = require('node-cron');
 const TOKEN = process.env.TOKEN;
 const { MongoClient } = require("mongodb");
@@ -159,6 +161,11 @@ bot.on('message', msg => {
   }
   else if(msg.content.startsWith('rrad')) {
     msg.reply('\nRead graph \nResearch \nAnalysis \nDecision');
+  }
+  else if(msg.content.startsWith('to the moon')) {
+    const image = fs.readFileSync(path.join(__dirname, 'tothemoon.jpg'))
+    const attachment = new MessageAttachment(image)
+    msg.reply(attachment);
   }
   else if(msg.content.startsWith('เสียดาย')) {
     fetch('https://api.bitkub.com/api/market/ticker').then(res => res.json())
