@@ -163,8 +163,7 @@ bot.on('message', msg => {
   }
   else if(msg.content.startsWith('to the moon')) {
     const image = fs.readFileSync(path.join(__dirname, 'tothemoon.jpg'))
-    const attachment = new Discord.MessageAttachment(image)
-    msg.reply("",attachment);
+    msg.reply("",{files: [image]});
   }
   else if(msg.content.startsWith('เสียดาย')) {
     fetch('https://api.bitkub.com/api/market/ticker').then(res => res.json())
