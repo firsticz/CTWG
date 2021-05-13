@@ -165,6 +165,10 @@ bot.on('message', msg => {
     const image = fs.readFileSync(path.join(__dirname, 'tothemoon.jpg'))
     msg.reply("",{files: [image]});
   }
+  else if(msg.content.startsWith('ข่าวลือ')) {
+    const image = fs.readFileSync(path.join(__dirname, 'l.jpg'))
+    msg.reply("",{files: [image]});
+  }
   else if(msg.content.startsWith('เสียดาย')) {
     fetch('https://api.bitkub.com/api/market/ticker').then(res => res.json())
     .then(json => {
